@@ -2,8 +2,8 @@
   <div class="wrapper">
     <swiper :options="swiperOption">
       <!-- slides -->
-      <swiper-slide v-for="item of swiperList">
-        <img class="swiper-img" :src="item.imgURL" :key="item.id">
+      <swiper-slide v-for="item of swiperList" :key="item.id">
+        <img class="swiper-img" :src="item.imgURL">
       </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
@@ -14,9 +14,6 @@
       <!--滚动条-->
       <!--<div class="swiper-scrollbar"   slot="scrollbar"></div>-->
     </swiper>
-    <div>
-      test
-    </div>
   </div>
 </template>
 
@@ -50,7 +47,7 @@ export default {
     overflow: hidden
     width: 100%
     height: 0
-    padding-bottom: 37.5%  /*图片宽高比例自适应*/
+    padding-bottom: (100/375)*100% /*图片宽高比例自适应*/
     .swiper-img
       width: 100%
 </style>
