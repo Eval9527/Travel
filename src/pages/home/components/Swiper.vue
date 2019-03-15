@@ -2,8 +2,8 @@
   <div class="wrapper">
     <swiper :options="swiperOption">
       <!-- slides -->
-      <swiper-slide v-for="item of swiperList">
-        <img class="swiper-img" :src="item.imgURL" :key="item.id">
+      <swiper-slide v-for="item of swiperList" :key="item.id">
+        <img class="swiper-img" :src="item.imgURL">
       </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
@@ -14,9 +14,6 @@
       <!--滚动条-->
       <!--<div class="swiper-scrollbar"   slot="scrollbar"></div>-->
     </swiper>
-    <div>
-      test
-    </div>
   </div>
 </template>
 
