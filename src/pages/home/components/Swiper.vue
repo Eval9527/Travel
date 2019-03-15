@@ -26,7 +26,9 @@ export default {
         // 添加页码原点
         pagination: '.swiper-pagination',
         // 循环轮播
-        loop: true
+        loop: true,
+        // 轮播速度
+        autoplay: 3000
       },
       swiperList: [{
         id: '0001',
