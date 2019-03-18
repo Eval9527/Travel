@@ -17,7 +17,7 @@ export default {
     padding: 0 .1rem
     background: $bgColor
     .input-search
-      box-sizing: border-box  /*直接使用 padding 会导致右边溢出，需要使用 border-box 将内边距放入框中*/
+      box-sizing: border-box  /*直接使用 padding 会导致右边溢出，需要使用 border-box 将内边距放入框中，这样元素的内边距和边框不再会增加它的宽度*/
       width: 100%
       height: .62rem
       padding: 0 0.1rem
