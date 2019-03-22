@@ -26,6 +26,7 @@ export default {
   name: 'City',
   components: {
     CityHeader,
+    // CityHeader: () => import('./components/Header')
     CitySearch,
     CityList,
     CityAlphabet
