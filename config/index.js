@@ -12,8 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:80',
+        target: 'https://www.easy-mock.com/mock/5ca336ed6a75d2147ea8ad0e/example',
         // target: 'http://localhost:8080',
+        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         // pathRewrite: {
         //   '^/api': '/static/mock'
         // }
@@ -59,7 +60,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     // assetsPublicPath: '/',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/Travel',
 
     /**
      * Source Maps
