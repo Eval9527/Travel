@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getHomeInfo () {
-      axios.get('/api/index.json?city=' + this.city)
+      axios.get('/Travel/api/index.json?city=' + this.city)
         .then(this.getHomeInfoSuss)
     },
     getHomeInfoSuss (res) {
