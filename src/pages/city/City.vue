@@ -17,10 +17,10 @@
 <script>
 import axios from 'axios'
 
-import CityHeader from './components/Header'
-import CitySearch from './components/Search'
-import CityList from './components/List'
-import CityAlphabet from './components/Alphabet'
+import CityHeader from './components/Header.vue'
+import CitySearch from './components/Search.vue'
+import CityList from './components/List.vue'
+import CityAlphabet from './components/Alphabet.vue'
 
 export default {
   name: 'City',

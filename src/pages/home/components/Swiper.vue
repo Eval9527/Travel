@@ -12,8 +12,15 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+
 export default {
   name: 'HomeSwiper',
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   props: {
     list: Array
   },
@@ -37,14 +44,18 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .wrapper >>> .swiper-pagination-bullet-active
-    background: #fff
-  .wrapper
-    overflow: hidden
-    width: 100%
-    height: 0
-    padding-bottom: (200/640)*100% /*图片宽高比例自适应*/
-    .swiper-img
-      width: 100%
+<style lang="scss" scoped>
+.wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 31.25%;
+  :deep(.swiper-pagination-bullet-active) {
+    background: #fff;
+  }
+  .swiper-img {
+    width: 100%;
+  }
+}
+
 </style>

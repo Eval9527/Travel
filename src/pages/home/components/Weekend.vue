@@ -24,33 +24,43 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  @import "~styles/mixins.styl"
-  .title
-    line-height: .8rem
-    background: #eee
-    text-indent: .2rem
-  .item-img-paper
-    overflow: hidden
-    height: 0
-    padding-bottom: (214/640)*100%
-    .item-img
-      width: 100%
-  .item-info
-    padding: .1rem
-    .item-title
-      line-height: .54rem
-      font-size: .32rem
-      ellipsis()
-    .item-desc
-      line-height: .4rem
-      color: #ccc
-      ellipsis()
-    .item-button
-      line-height: .44rem
-      margin-top: .16rem
-      background: #ff9300
-      padding: 0 .2rem
-      border-radius: .06rem
-      color: #fff
+<style lang="scss" scoped>
+@import '@styles/varibles.scss';
+@import '@styles/mixins.scss';
+
+.title {
+  line-height: 0.8rem;
+  background: #eee;
+  text-indent: 0.2rem;
+}
+.item-img-paper {
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 33.4375%;
+  .item-img {
+    width: 100%;
+  }
+}
+.item-info {
+  padding: 0.1rem;
+  .item-title {
+    line-height: 0.54rem;
+    font-size: 0.32rem;
+    @include ellipsis
+  }
+  .item-desc {
+    line-height: 0.4rem;
+    color: #ccc;
+    @include ellipsis
+  }
+  .item-button {
+    line-height: 0.44rem;
+    margin-top: 0.16rem;
+    background: #ff9300;
+    padding: 0 0.2rem;
+    border-radius: 0.06rem;
+    color: #fff;
+  }
+}
+
 </style>

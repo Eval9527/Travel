@@ -1,22 +1,22 @@
 <template>
   <div>
     <!--<home-header :city=""city></home-header>-->
-    <home-header></home-header>
-    <home-swiper :list="swiperList"></home-swiper>
-    <home-icons :list="iconsList"></home-icons>
-    <home-recommend :list="recommendList"></home-recommend>
-    <home-weekend :list="weekendList"></home-weekend>
+    <home-header />
+    <home-swiper :list="swiperList" />
+    <home-icons :list="iconsList" />
+    <home-recommend :list="recommendList" />
+    <home-weekend :list="weekendList" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 
-import HomeHeader from './components/Header'
-import HomeSwiper from './components/Swiper'
-import HomeIcons from './components/Icons'
-import HomeRecommend from './components/Recommend'
-import HomeWeekend from './components/Weekend'
+import HomeHeader from './components/Header.vue'
+import HomeSwiper from './components/Swiper.vue'
+import HomeIcons from './components/Icons.vue'
+import HomeRecommend from './components/Recommend.vue'
+import HomeWeekend from './components/Weekend.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -26,7 +26,7 @@ export default {
     HomeSwiper,
     HomeIcons,
     HomeRecommend,
-    HomeWeekend
+    HomeWeekend,
   },
   data () {
     return {

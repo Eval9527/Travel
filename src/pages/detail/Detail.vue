@@ -1,9 +1,9 @@
 <template>
   <div>
-    <detail-banner :sightName="sightName" :bannerImg="bannerImg" :bannerImgs="gallaryImgs"></detail-banner>
-    <detail-header></detail-header>
+    <detail-banner :sightName="sightName" :bannerImg="bannerImg" :bannerImgs="gallaryImgs" />
+    <detail-header />
     <div class="content">
-      <detail-list :list="list"></detail-list>
+      <detail-list :list="list" />
     </div>
   </div>
 </template>
@@ -11,9 +11,9 @@
 <script>
 import axios from 'axios'
 
-import DetailBanner from './components/Banner'
-import DetailHeader from './components/Header'
-import DetailList from './components/List'
+import DetailBanner from './components/Banner.vue'
+import DetailHeader from './components/Header.vue'
+import DetailList from './components/List.vue'
 
 export default {
   name: 'Detail',
@@ -60,7 +60,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .content
-    height: 50rem
+<style lang="scss" scoped>
+.content {
+  height: 50rem;
+}
+
 </style>

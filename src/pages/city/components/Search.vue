@@ -80,32 +80,38 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  @import "~styles/varibles.styl"
-  .search
-    height: .72rem
-    padding: 0 .1rem
-    background: $bgColor
-    .input-search
-      box-sizing: border-box  /*直接使用 padding 会导致右边溢出，需要使用 border-box 将内边距放入框中，这样元素的内边距和边框不再会增加它的宽度*/
-      width: 100%
-      height: .62rem
-      padding: 0 0.1rem
-      line-height: .62rem
-      text-align: center
-      border-radius: .06rem
-      color: #666
-  .search-content
-    z-index: 1
-    position: absolute
-    top: 1.58rem
-    left: 0
-    right: 0
-    bottom: 0
-    background: #fff
-    .search-item
-      line-height: .62rem
-      padding: .2rem
-      background: #fff
-      color: #666
+<style lang="scss" scoped>
+@import '@styles/varibles.scss';
+
+.search {
+  height: 0.72rem;
+  padding: 0 0.1rem;
+  background: $bgColor;
+  .input-search {
+    box-sizing: border-box;
+    width: 100%;
+    height: 0.62rem;
+    padding: 0 0.1rem;
+    line-height: 0.62rem;
+    text-align: center;
+    border-radius: 0.06rem;
+    color: #666;
+  }
+}
+.search-content {
+  z-index: 1;
+  position: absolute;
+  top: 1.58rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  .search-item {
+    line-height: 0.62rem;
+    padding: 0.2rem;
+    background: #fff;
+    color: #666;
+  }
+}
+
 </style>

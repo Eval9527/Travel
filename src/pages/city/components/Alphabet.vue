@@ -74,19 +74,24 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  @import "~styles/varibles.styl"
-  .list
-    display: flex  /*使用 flex 垂直居中*/
-    flex-direction: column
-    justify-content: center
-    position: absolute
-    top: 1.58rem
-    right: 0
-    bottom: 0
-    width: .4rem
-    .item
-      line-height: .4rem  /*添加间距*/
-      text-align: center  /* 水平居中*/
-      color: $bgColor
+<style lang="scss" scoped>
+@import '@styles/varibles.scss';
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 1.58rem;
+  right: 0;
+  bottom: 0;
+  width: 0.4rem;
+  .item {
+    line-height: 0.4rem;
+    text-align: center;
+    color: $bgColor;
+  }
+}
+
+
 </style>
