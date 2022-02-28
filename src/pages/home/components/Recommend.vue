@@ -20,13 +20,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HomeRecommend',
-  props: {
-    list: Array
-  }
-}
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  list: Array
+})
 </script>
 
 <style lang="scss" scoped>

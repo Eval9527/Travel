@@ -13,40 +13,27 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import {Swiper, SwiperSlide} from "swiper/vue"
+import { ref, defineProps, computed } from 'vue'
 
-export default {
-  name: 'HomeIcons',
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  props: {
-    list: Array
-  },
-  data () {
-    return {
-      swiperOption: {
-        // 取消自动轮播
-        autoplay: false
-      }
+// 取消自动轮播
+const swiperOption = ref({autoplay: false})
+
+const props = defineProps({
+  list: Array
+})
+
+const pages = computed(() => {
+  const newPages = []
+  props.list.forEach((item, index) => {
+    if (index % 8 === 0) {
+      newPages.push([])
     }
-  },
-  computed: {
-    pages () {
-      const pages = []
-      this.list.forEach((item, index) => {
-        const page = Math.floor(index / 8)
-        if (!pages[page]) {
-          pages[page] = []
-        }
-        pages[page].push(item)
-      })
-      return pages
-    }
-  }
-}
+    newPages[newPages.length - 1].push(item)
+  })
+  return newPages
+})
 </script>
 
 <style lang="scss" scoped>

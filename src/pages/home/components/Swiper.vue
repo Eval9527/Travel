@@ -11,37 +11,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, defineProps, computed } from "vue"
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
-export default {
-  name: 'HomeSwiper',
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  props: {
-    list: Array
-  },
-  data () {
-    return {
-      swiperOption: {
-        // 添加页码原点
-        pagination: '.swiper-pagination',
-        // 循环轮播
-        loop: true,
-        // 轮播速度
-        autoplay: 3000
-      }
-    }
-  },
-  computed: {
-    showSwiper () {
-      return this.list.length
-    }
-  }
-}
+const props = defineProps({
+  list: Array
+})
+
+const swiperOption = ref({
+  // 添加页码原点
+  pagination: '.swiper-pagination',
+  // 循环轮播
+  loop: true,
+  // 轮播速度
+  autoplay: 3000
+})
+
+// 是否显示滑动
+const showSwiper = computed(() => {
+  return props.list.length
+})
 </script>
 
 <style lang="scss" scoped>

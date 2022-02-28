@@ -9,63 +9,51 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
-
+import { ref, onMounted, computed, onActivated } from 'vue'
 import HomeHeader from './components/Header.vue'
 import HomeSwiper from './components/Swiper.vue'
 import HomeIcons from './components/Icons.vue'
 import HomeRecommend from './components/Recommend.vue'
 import HomeWeekend from './components/Weekend.vue'
-import { mapState } from 'vuex'
+import { useStore } from 'vuex'
 
-export default {
-  name: 'Home',
-  components: {
-    HomeHeader,
-    HomeSwiper,
-    HomeIcons,
-    HomeRecommend,
-    HomeWeekend,
-  },
-  data () {
-    return {
-      lastCity: '',
-      swiperList: [],
-      iconsList: [],
-      recommendList: [],
-      weekendList: []
-    }
-  },
-  computed: {
-    ...mapState(['city'])
-  },
-  methods: {
-    getHomeInfo () {
-      axios.get('/api/index.json?city=' + this.city)
-        .then(this.getHomeInfoSuss)
-    },
-    getHomeInfoSuss (res) {
-      res = res.data
-      if (res.ret && res.data) {
-        const data = res.data
-        // this.city = data.city
-        this.swiperList = data.swiperList
-        this.iconsList = data.iconsList
-        this.recommendList = data.recommendList
-        this.weekendList = data.weekendList
-      }
-    }
-  },
-  mounted () {
-    this.lastCity = this.city
-    this.getHomeInfo()
-  },
-  activated () {
-    if (this.lastCity !== this.city) {
-      this.lastCity = this.city
-      this.getHomeInfo()
-    }
+const store = useStore()
+
+const listCity = ref('')
+const swiperList = ref([])
+const iconsList = ref([])
+const recommendList = ref([])
+const weekendList = ref([])
+const city = computed(() => store.state.city)
+
+onMounted(() => {
+  listCity.value = city.value
+  getHomeInfo()
+})
+
+onActivated(() => {
+  if (listCity.value !== city.value) {
+    listCity.value = city.value
+    getHomeInfo()
+  }
+})
+
+const getHomeInfo = () => {
+  axios
+      .get('/api/index.json?city=' + city.value)
+      .then(getHomeInfoSuss)
+}
+
+const getHomeInfoSuss = (res) => {
+  res = res.data
+  if (res.ret && res.data) {
+    const data = res.data
+    swiperList.value = data.swiperList
+    iconsList.value = data.iconsList
+    recommendList.value = data.recommendList
+    weekendList.value = data.weekendList
   }
 }
 </script>
