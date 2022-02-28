@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search-container">
     <div class="search">
       <input v-model="keyword" class="input-search" type="text" placeholder="输入城市名或拼音">
     </div>
@@ -34,7 +34,8 @@ export default {
     return {
       keyword: '',
       list: [],
-      timer: null
+      timer: null,
+      scroll: null,
     }
   },
   computed: {
@@ -75,6 +76,22 @@ export default {
         }
         this.list = result
       }, 100)
+    },
+    cities: {
+      handler () {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      deep: true
+    },
+    list: {
+      handler () {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      deep: true
     }
   }
 }
@@ -87,6 +104,8 @@ export default {
   height: 0.72rem;
   padding: 0 0.1rem;
   background: $bgColor;
+  position: relative;
+  z-index: 2;
   .input-search {
     box-sizing: border-box;
     width: 100%;

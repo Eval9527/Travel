@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="city-container">
     <city-header></city-header>
     <city-search :cities="cities"></city-search>
     <city-list
@@ -64,6 +64,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

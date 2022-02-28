@@ -5,12 +5,11 @@
     </div>
     <div class="header-input">
       <span class="iconfont">&#xe632;</span>
-      输入城市/景点/游玩主题</div>
+      输入城市/景点/游玩主题
+    </div>
     <router-link to="/city">
       <div class="header-right">
-        <!--{{this.$store.state.city}}-->
-        {{this.city}}
-        <!--{{this.doubleCity}}-->
+        {{ this.city }}
         <span class="iconfont arrow-icon">&#xe64a;</span>
       </div>
     </router-link>
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
 export default {
   name: 'HomeHeader',
@@ -37,14 +36,17 @@ export default {
   line-height: $headerHeight;
   background: $bgColor;
   color: #fff;
+
   .header-left {
     width: 0.64rem;
     float: left;
+
     .back-icon {
       text-align: center;
       font-size: 0.4rem;
     }
   }
+
   .header-input {
     flex: 1;
     height: 0.64rem;
@@ -56,12 +58,14 @@ export default {
     border-radius: 0.1rem;
     color: #ccc;
   }
+
   .header-right {
     min-width: 1.04rem;
     padding: 0 0.1rem;
     float: right;
     text-align: center;
     color: #fff;
+
     .arrow-icon {
       margin-left: -0.04rem;
       font-size: 0.24rem;

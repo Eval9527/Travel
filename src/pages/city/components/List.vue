@@ -53,6 +53,11 @@ export default {
     hot: Array,
     letter: String
   },
+  data() {
+    return {
+      scroll: null
+    }
+  },
   methods: {
     handleCityClick (city) {
       // alert(city)
@@ -79,6 +84,14 @@ export default {
         const element = this.$refs[this.letter][0]
         this.scroll.scrollToElement(element)
       }
+    },
+    cities: {
+      handler () {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      deep: true
     }
   }
 }

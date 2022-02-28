@@ -6,8 +6,6 @@ import store from './store'
 import '@styles/reset.css'
 import '@styles/border.css'
 import '@styles/iconfont.css'
-import '@styles/varibles.scss'
-import '@styles/mixins.styl'
 
 const app = createApp(App)
 

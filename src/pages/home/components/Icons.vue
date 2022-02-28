@@ -55,6 +55,9 @@ export default {
 
 .icons {
   margin-top: 0.2rem;
+  :deep(.swiper-wrapper) {
+    height: 160px;
+  }
   :deep(.swiper-container) {
     height: 0;             /*使用 padding-bottom 撑开，完成自适应*/
     padding-bottom: 50%;   /*宽高比2：1的区域*/
