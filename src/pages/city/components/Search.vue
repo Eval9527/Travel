@@ -52,7 +52,7 @@ export default {
     ...mapMutations(['changeCity'])
   },
   mounted () {
-    this.scroll = new BScroll(this.$refs.search)
+    this.scroll = new BScroll(this.$refs.search, {click: true})
   },
   watch: {
     keyword () {
@@ -118,7 +118,7 @@ export default {
   }
 }
 .search-content {
-  z-index: 1;
+  z-index: 3;
   position: absolute;
   top: 1.58rem;
   left: 0;
