@@ -1,21 +1,22 @@
 <template>
   <div class="city-container">
-    <city-header></city-header>
-    <city-search :cities="cities"></city-search>
-    <city-list
-      :cities="cities"
-      :hot="hotCities"
-      :letter="letter"
-    ></city-list>
-    <city-alphabet
-      :cities="cities"
-      @change="handleLetterChange"
-    ></city-alphabet>
+    <CityHeader/>
+    <CitySearch
+        :cities="cities"/>
+    <CityList
+        :cities="cities"
+        :hot="hotCities"
+        :letter="letter"
+    />
+    <CityAlphabet
+        :cities="cities"
+        @change="handleLetterChange"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import {ref, onMounted} from 'vue'
 import axios from 'axios'
 
 import CityHeader from './components/Header.vue'
