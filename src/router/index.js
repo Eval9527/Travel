@@ -8,8 +8,8 @@ const routes = [
   },
   {
     path:'/city',
-    name:"city",
-    component:()=>import('@/pages/city/city.vue')
+    name:"City",
+    component:()=>import('@/pages/city/City.vue')
   },
   {
     path:'/detail/:id',

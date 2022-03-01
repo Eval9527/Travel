@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <router-view v-slot="{ Component }">
     <keep-alive>
-      <router-view/>
+      <component :is="Component" />
     </keep-alive>
-  </div>
+  </router-view>
 </template>
 
 <script>
@@ -11,7 +11,3 @@ export default {
   name: 'App'
 }
 </script>
-
-<style>
-
-</style>
