@@ -1,63 +1,57 @@
 <template>
   <div>
-    <detail-banner :sightName="sightName" :bannerImg="bannerImg" :bannerImgs="gallaryImgs" />
-    <detail-header />
+    <DetailBanner :sightName="sightName" :bannerImg="bannerImg" :bannerImgs="gallaryImgs" />
+    <DetailHeader />
     <div class="content">
-      <detail-list :list="list" />
+      <DetailList :list="list" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onActivated } from 'vue'
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 import DetailBanner from './components/Banner.vue'
 import DetailHeader from './components/Header.vue'
 import DetailList from './components/List.vue'
 
-export default {
-  name: 'Detail',
-  components: {
-    DetailBanner,
-    DetailHeader,
-    DetailList
-  },
-  data () {
-    return {
-      sightName: '',
-      bannerImg: '',
-      gallaryImgs: [],
-      list: []
-    }
-  },
-  methods: {
-    getDetailInfo () {
-      console.log('123')
-      // axios.get('/api/detail.json?id=' + this.$route.params.id)
-      axios.get('/api/detail.json', {
+const sightName = ref('')
+const bannerImg = ref('')
+const gallaryImgs = ref([])
+const list = ref([])
+
+const route = useRoute()
+
+const getDetailInfo = () => {
+  axios
+      .get('/api/detail.json', {
         params: {
-          id: this.$route.params.id
+          id: route.params.id
         }
-      }).then(this.getDetailInfoSuss)
-    },
-    getDetailInfoSuss (res) {
-      res = res.data
-      if (res.ret && res.data) {
-        const data = res.data
-        this.sightName = data.sightName
-        this.bannerImg = data.bannerImg
-        this.gallaryImgs = data.gallaryImgs
-        this.list = data.categoryList
-      }
-    }
-  },
-  mounted () {
-    this.getDetailInfo()
-  },
-  activated () {
-    this.getDetailInfo()
+      })
+      .then(getDetailInfoSuss)
+}
+
+const getDetailInfoSuss = (res) => {
+  res = res.data
+  if (res.ret && res.data) {
+    const data = res.data
+    sightName.value = data.sightName
+    bannerImg.value = data.bannerImg
+    gallaryImgs.value = data.gallaryImgs
+    list.value = data.categoryList
   }
 }
+
+onMounted(() => {
+  getDetailInfo()
+})
+
+onActivated(() => {
+  getDetailInfo()
+})
 </script>
 
 <style lang="scss" scoped>

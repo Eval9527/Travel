@@ -10,19 +10,18 @@
         {{item.title}}
       </div>
       <div class="item-children" v-if="item.children">
-        <detail-list :list="item.children"></detail-list>
+        <List :list="item.children"></List>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'DetailList',
-  props: {
-    list: Array
-  }
-}
+<script setup>
+import { defineProps } from "vue"
+
+const props = defineProps({
+  list: Array
+})
 </script>
 
 <style lang="scss" scoped>

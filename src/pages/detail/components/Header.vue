@@ -21,38 +21,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'DetailHeader',
-  data () {
-    return {
-      showAbs: true,
-      opacityStyle: 0
-    }
-  },
-  methods: {
-    handleScroll () {
-      console.log('scroll')
-      // console.log(document.documentElement.scrollTop)
-      const top = document.documentElement.scrollTop
-      if (top > 60) {
-        let opacity = top / 140
-        // opacity 大于 1 时，让其为 1
-        opacity = opacity > 1 ? 1 : opacity
-        this.opacityStyle = { opacity }
-        this.showAbs = false
-      } else {
-        this.showAbs = true
-      }
-    }
-  },
-  activated () {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  deactivated () {
-    window.removeEventListener('scroll', this.handleScroll)
+<script setup>
+import { ref, onActivated, onDeactivated } from 'vue'
+
+const showAbs = ref(true)
+const opacityStyle = ref(0)
+
+const handleScroll = () => {
+  const top = document.documentElement.scrollTop
+  if (top > 60) {
+    let opacity = top / 140
+    // opacity 大于 1 时，让其为 1
+    opacity = opacity > 1 ? 1 : opacity
+    opacityStyle.value = { opacity }
+    showAbs.value = false
+  } else {
+    showAbs.value = true
   }
 }
+
+onActivated(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onDeactivated(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style lang="scss" scoped>

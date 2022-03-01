@@ -4,52 +4,43 @@
       <img class="banner-img" :src="bannerImg">
       <div class="banner-info">
         <div class="banner-title">
-          {{ this.sightName }}
+          {{ sightName }}
         </div>
         <div class="banner-number banner-icon">
           <span class="iconfont">&#xe650;</span>
-          {{ this.bannerImgs.length }}
+          {{ bannerImgs.length }}
         </div>
       </div>
     </div>
-    <fade-animation>
-      <common-gallery
+    <FadeAnimation>
+      <CommonGallery
           :imgs="bannerImgs"
           v-show="showGarrery"
           @close="handleGalleryClose"
       />
-    </fade-animation>
+    </FadeAnimation>
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, ref } from "vue"
 import CommonGallery from '@common/Gallery/Gallery.vue'
 import FadeAnimation from '@common/fade/FadeAnimation.vue'
 
-export default {
-  name: 'DetailBanner',
-  props: {
-    sightName: String,
-    bannerImg: String,
-    bannerImgs: Array
-  },
-  data() {
-    return {
-      showGarrery: false
-    }
-  },
-  methods: {
-    handleBannerClick() {
-      this.showGarrery = true
-    },
-    handleGalleryClose() {
-      this.showGarrery = false
-    }
-  },
-  components: {
-    CommonGallery,
-    FadeAnimation
-  }
+const props = defineProps({
+  sightName: String,
+  bannerImg: String,
+  bannerImgs: Array
+})
+
+const showGarrery = ref(false)
+
+const handleBannerClick = () => {
+  showGarrery.value = true
+}
+
+const handleGalleryClose = () => {
+  showGarrery.value = false
 }
 </script>
 
