@@ -3,7 +3,7 @@
     <div class="search">
       <input v-model="keyword" class="input-search" type="text" placeholder="输入城市名或拼音">
     </div>
-    <div class="search-content" ref="search" v-show="keyword">
+    <div class="search-content" ref="searchRef" v-show="keyword">
       <ul>
         <li
           class="search-item border-bottom"
@@ -21,80 +21,82 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, ref, onMounted, nextTick, watch, computed } from "vue"
 import BScroll from 'better-scroll'
-import { mapMutations } from 'vuex'
+import { mapMutations } from '@utils/map-state.js'
+import {useRouter} from "vue-router";
 
-export default {
-  name: 'CitySearch',
-  props: {
-    cities: Object
-  },
-  data () {
-    return {
-      keyword: '',
-      list: [],
-      timer: null,
-      scroll: null,
-    }
-  },
-  computed: {
-    // 避免在模板上计算
-    hasNoData () {
-      return !this.list.length
-    }
-  },
-  methods: {
-    handleCityClick (city) {
-      this.changeCity(city)
-      this.$router.push('/')
+const props = defineProps({
+  cities: Object,
+})
+
+const keyword = ref('')
+const list = ref([])
+const timer = ref(null)
+const scroll = ref(null)
+const searchRef = ref(null)
+
+const hasNoData = computed(() => list.value.length)
+
+const { changeCity } = mapMutations()
+const { push } = useRouter()
+
+const handleCityClick = city => {
+  changeCity(city)
+  push('/')
+}
+
+onMounted(() => {
+  scroll.value = new BScroll(searchRef.value, {click: true})
+})
+
+watch(
+    () => props.cities,
+    () => {
+      nextTick(() => {
+        scroll.value.refresh()
+      })
     },
-    ...mapMutations(['changeCity'])
-  },
-  mounted () {
-    this.scroll = new BScroll(this.$refs.search, {click: true})
-  },
-  watch: {
-    keyword () {
-      if (this.timer) {
-        clearTimeout(this.timer)
+    { deep: true }
+)
+
+watch(
+    () => list.value,
+    () => {
+      nextTick(() => {
+        scroll.value.refresh()
+      })
+    },
+    { deep: true }
+)
+
+watch(
+    () => keyword.value,
+    () => {
+      if (timer.value) {
+        clearTimeout(timer.value)
       }
       // 解决删除关键词后仍显示之前搜索结果
-      if (!this.keyword) {
-        this.list = []
+      if (!keyword.value) {
+        list.value = []
         return
       }
-      this.timer = setTimeout(() => {
+      timer.value = setTimeout(() => {
         const result = []
-        for (let i in this.cities) {
-          this.cities[i].forEach((value) => {
+        for (let i in props.cities) {
+          props.cities[i].forEach((value) => {
             // 匹配 spell 拼音和 name 名字
-            if (value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
+            if (value.spell.indexOf(keyword.value) > -1 || value.name.indexOf(keyword.value) > -1) {
               result.push(value)
             }
           })
         }
-        this.list = result
+        list.value = result
       }, 100)
     },
-    cities: {
-      handler () {
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-      deep: true
-    },
-    list: {
-      handler () {
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-      deep: true
-    }
-  }
-}
+    { deep: true }
+)
 </script>
 
 <style lang="scss" scoped>

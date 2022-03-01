@@ -1,5 +1,5 @@
 <template>
-  <div class="list" ref="wrapper">
+  <div class="list" ref="wrapperRef">
     <div>
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
@@ -7,7 +7,7 @@
           <div class="button-wrapper">
             <!--<div class="button">北京</div>-->
             <!--<div class="button">{{this.$store.state.city}}</div>-->
-            <div class="button">{{this.currentCity}}</div>
+            <div class="button">{{city}}</div>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         class="area"
         v-for="(item, key) of cities"
         :key="key"
-        :ref="key"
+        :ref="el => setItemRef(el, key)"
       >
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list"
@@ -42,59 +42,61 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, ref, onMounted, nextTick, watch } from "vue"
 import BScroll from 'better-scroll'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations } from '@utils/map-state.js'
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'CityList',
-  props: {
-    cities: Object,
-    hot: Array,
-    letter: String
-  },
-  data() {
-    return {
-      scroll: null
-    }
-  },
-  methods: {
-    handleCityClick (city) {
-      // alert(city)
-      // this.$store.dispatch('changeCity', city)
-      // this.$store.commit('changeCity', city)
-      this.changeCity(city)
-      this.$router.push('/')
-    },
-    ...mapMutations(['changeCity'])
-  },
-  computed: {
-    ...mapState({
-      currentCity: 'city'
-    })
-  },
-  mounted () {
-    this.scroll = new BScroll(this.$refs.wrapper, {click: true})
-  },
-  watch: {
-    letter () {
-      // this.letter 即 A-Z，对应应是 cities.key
-      // console.log(this.letter)
-      if (this.letter) {
-        const element = this.$refs[this.letter][0]
-        this.scroll.scrollToElement(element)
-      }
-    },
-    cities: {
-      handler () {
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-      deep: true
-    }
-  }
+const { city } = mapState()
+const { changeCity } = mapMutations()
+const { push } = useRouter()
+
+const props = defineProps({
+  cities: Object,
+  hot: Array,
+  letter: String
+})
+
+const scroll = ref(null)
+const divObj = ref({})
+const wrapperRef = ref(null)
+
+const setItemRef = (el, item) => {
+  divObj.value[item] = el
+
+  return divObj.value[item]
 }
+
+
+const handleCityClick = (city) => {
+  changeCity(city)
+  push('/')
+}
+
+onMounted(() => {
+  scroll.value = new BScroll(wrapperRef.value, {click: true})
+})
+
+watch(
+    () => props.letter,
+    () => {
+      if (props.letter) {
+        scroll.value.scrollToElement(divObj.value[props.letter])
+      }
+    }
+)
+
+watch(
+    () => props.cities,
+    () => {
+      nextTick(() => {
+        scroll.value.refresh()
+      })
+    },
+    { deep: true }
+)
+
 </script>
 
 <style lang="scss" scoped>

@@ -9,6 +9,7 @@ export default defineConfig({
       '@styles': '/src/assets/styles',
       '@assets': '/src/assets/',
       '@common': '/src/common/',
+      '@utils': '/src/utils/',
     },
   },
   server: {

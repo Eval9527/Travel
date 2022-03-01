@@ -7,12 +7,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CityHeader'
-}
-</script>
-
 <style lang="scss" scoped>
 @import '@styles/varibles.scss';
 
