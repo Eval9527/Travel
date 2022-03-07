@@ -1,38 +1,34 @@
 <template>
   <div class="wrapper">
-    <Swiper :options="swiperOption" v-if="showSwiper">
+    <Swiper :modules="modules" :loop="true" :autoplay="autoplay" v-if="showSwiper">
       <!-- slides -->
       <SwiperSlide v-for="item of list" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl">
       </SwiperSlide>
-      <!-- Optional controls -->
-      <div class="swiper-pagination"  slot="pagination"></div>
     </Swiper>
   </div>
 </template>
 
 <script setup>
-import { ref, defineProps, computed } from "vue"
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import { defineProps, computed } from "vue"
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Pagination, Autoplay } from "swiper"
+
 import 'swiper/css'
+import 'swiper/css/pagination'
 
 const props = defineProps({
   list: Array
 })
 
-const swiperOption = ref({
-  // 添加页码原点
-  pagination: '.swiper-pagination',
-  // 循环轮播
-  loop: true,
-  // 轮播速度
-  autoplay: 3000
-})
+const modules = [Pagination, Autoplay]
+const autoplay = {
+  delay: 3000,
+  disableOnInteraction: false
+}
 
 // 是否显示滑动
-const showSwiper = computed(() => {
-  return props.list.length
-})
+const showSwiper = computed(() => !!props.list.length)
 </script>
 
 <style lang="scss" scoped>
