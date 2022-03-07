@@ -1,6 +1,6 @@
 <template>
     <div class="icons">
-      <Swiper :options="swiperOption">
+      <Swiper>
         <SwiperSlide v-for="(page, index) of pages" :key="index">
           <div class="icon" v-for="item of page" :key="item.id">
             <div class="icon-img">
@@ -15,13 +15,14 @@
 
 <script setup>
 import {Swiper, SwiperSlide} from "swiper/vue"
-import { ref, defineProps, computed } from 'vue'
+import { defineProps, computed } from 'vue'
 
-// 取消自动轮播
-const swiperOption = ref({autoplay: false})
 
 const props = defineProps({
-  list: Array
+  list: {
+    type: Array,
+    default: () => []
+  }
 })
 
 const pages = computed(() => {
@@ -43,7 +44,7 @@ const pages = computed(() => {
 .icons {
   margin-top: 0.2rem;
   :deep(.swiper-wrapper) {
-    height: 160px;
+    height: 3.8rem;
   }
   :deep(.swiper-container) {
     height: 0;             /*使用 padding-bottom 撑开，完成自适应*/
