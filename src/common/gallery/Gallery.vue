@@ -1,54 +1,41 @@
 <template>
   <div class="container" @click="handleGalleryClick">
     <div class="wrapper">
-      <swiper :options="swiperOption">
-        <swiper-slide
+      <Swiper :modules="modules" :pagination="pagination" class="mySwiper">
+        <SwiperSlide
           v-for="(item, index) of imgs"
           :key="index"
         >
           <img class="gallery-img" :src="item" alt="">
-        </swiper-slide>
-        <div class="swiper-pagination"  slot="pagination"></div>
-      </swiper>
+        </SwiperSlide>
+      </Swiper>
     </div>
   </div>
 </template>
 
-<script>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
+<script setup>
+import { defineProps, defineEmits } from "vue"
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Pagination } from "swiper"
 
-export default {
-  name: 'CommonGallery',
-  components: {
-    Swiper,
-    SwiperSlide,
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+const props = defineProps({
+  imgs: {
+    type: Array,
+    default: () => []
   },
-  props: {
-    imgs: {
-      type: Array,
-      default () {
-        return []
-      }
-    }
-  },
-  data () {
-    return {
-      swiperOption: {
-        pagination: '.swiper-pagination',
-        // 分页器类型为分数形式
-        paginationType: 'fraction',
-        // Banner 被点击时，应重新刷新 Swiper
-        observer: true,
-        observeParents: true
-      }
-    }
-  },
-  methods: {
-    handleGalleryClick () {
-      this.$emit('close')
-    }
-  }
+})
+
+const modules = [Pagination]
+const pagination = {
+  type: 'fraction'
+}
+
+const emits = defineEmits()
+const handleGalleryClick = () => {
+  emits('close')
 }
 </script>
 
